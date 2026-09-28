@@ -17,11 +17,10 @@ func exportTransportMigration() error {
 		Transport: "udp:B",
 	}
 
-	err := evidence.Export(
+	if err := evidence.Export(
 		"evidence/transport-migration.json",
 		report,
-	)
-	if err != nil {
+	); err != nil {
 		return err
 	}
 
