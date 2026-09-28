@@ -1,64 +1,43 @@
-package boundary
-
-// Session represents the public view of a VRP logical session.
-//
-// This structure intentionally exposes only observable runtime
-// information. Protected runtime state is never exported.
-type Session struct {
-	ID string
-
-	State SessionState
-
-	ActiveTransport string
+// CreateSession creates a new public session.
+func (a *API) CreateSession(id string) *Session {
+	return NewSession(id)
 }
 
-// SessionState describes the observable session lifecycle.
-type SessionState string
+// CreateTransport creates a new public transport.
+func (a *API) CreateTransport(
+	id string,
+	t TransportType,
+) *Transport {
 
-const (
+	return NewTransport(id, t)
+}
 
-	// SessionCreated indicates that the logical session exists.
-	SessionCreated SessionState = "CREATED"
+// CreateEvidence creates a public evidence record.
+func (a *API) CreateEvidence(
+	scenario string,
+	verdict Verdict,
+	message string,
+) Evidence {
 
-	// SessionActive indicates that the session is operational.
-	SessionActive SessionState = "ACTIVE"
+	return NewEvidence(
+		scenario,
+		verdict,
+		message,
+	)
+}
 
-	// SessionRecovering indicates that transport recovery is in progress.
-	SessionRecovering SessionState = "RECOVERING"
+// SwitchTransport performs a public transport replacement.
+func (a *API) SwitchTransport(
+	session *Session,
+	transport *Transport,
+) {
 
-	// SessionClosed indicates that the logical session has ended.
-	SessionClosed SessionState = "CLOSED"
-)
-
-// NewSession creates a new public session representation.
-func NewSession(id string) *Session {
-
-	return &Session{
-		ID:    id,
-		State: SessionCreated,
+	if session == nil || transport == nil {
+		return
 	}
-}
 
-// Activate marks the session as active.
-func (s *Session) Activate() {
+	transport.Attach()
+	transport.Activate()
 
-	s.State = SessionActive
-}
-
-// BeginRecovery marks the session as recovering.
-func (s *Session) BeginRecovery() {
-
-	s.State = SessionRecovering
-}
-
-// AttachTransport updates the active transport.
-func (s *Session) AttachTransport(name string) {
-
-	s.ActiveTransport = name
-}
-
-// Close marks the session as closed.
-func (s *Session) Close() {
-
-	s.State = SessionClosed
+	session.SwitchTransport(transport.ID)
 }
