@@ -39,5 +39,28 @@ func (a *API) SwitchTransport(
 	transport.Attach()
 	transport.Activate()
 
+<<<<<<< HEAD
 	session.SwitchTransport(transport.ID)
 }
+=======
+	s.State = SessionActive
+}
+
+// BeginRecovery marks the session as recovering.
+func (s *Session) BeginRecovery() {
+
+	s.State = SessionRecovering
+}
+
+// AttachTransport updates the active transport.
+func (s *Session) AttachTransport(name string) {
+
+	s.ActiveTransport = name
+}
+
+// Close marks the session as closed.
+func (s *Session) Close() {
+
+	s.State = SessionClosed
+}
+>>>>>>> 82b06d5 (Demonstrate runtime boundary transport migration)

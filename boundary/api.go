@@ -29,6 +29,7 @@ func (a *API) Version() string {
 func (a *API) DesignPrinciple() string {
 	return "SESSION ≠ TRANSPORT"
 }
+<<<<<<< HEAD
 
 // SwitchTransport performs a public transport replacement.
 func (a *API) SwitchTransport(
@@ -45,3 +46,5 @@ func (a *API) SwitchTransport(
 
 	session.SwitchTransport(transport.ID)
 }
+=======
+>>>>>>> 82b06d5 (Demonstrate runtime boundary transport migration)

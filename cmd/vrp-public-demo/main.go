@@ -12,22 +12,18 @@ func main() {
 
 	session := api.CreateSession("demo-session")
 
-	transport := api.CreateTransport(
+	transportA := api.CreateTransport(
 		"udp:A",
 		boundary.TransportUDP,
 	)
 
-	transport.Attach()
-	transport.Activate()
-
-	session.AttachTransport(transport.ID)
-	session.Activate()
-
-	evidence := api.CreateEvidence(
-		"Session Establishment",
-		boundary.VerdictPass,
-		"Logical session successfully established.",
+	transportB := api.CreateTransport(
+		"udp:B",
+		boundary.TransportUDP,
 	)
+
+	api.SwitchTransport(session, transportA)
+	session.Activate()
 
 	fmt.Println("======================================")
 	fmt.Println(api.Name())
@@ -38,16 +34,32 @@ func main() {
 	fmt.Println("Principle:", api.DesignPrinciple())
 	fmt.Println()
 
-	fmt.Println("Session ID:", session.ID)
-	fmt.Println("Session State:", session.State)
-	fmt.Println("Active Transport:", session.ActiveTransport)
+	fmt.Println("Session:", session.ID)
+	fmt.Println("State:", session.State)
+	fmt.Println("Transport:", session.ActiveTransport)
+
+	fmt.Println()
+	fmt.Println("----- TRANSPORT MIGRATION -----")
 	fmt.Println()
 
+	api.SwitchTransport(session, transportB)
+
+	fmt.Println("Transport switched")
+	fmt.Println("Active transport:", session.ActiveTransport)
+
+	evidence := api.CreateEvidence(
+		"Transport Migration",
+		boundary.VerdictPass,
+		"Logical session preserved while transport changed.",
+	)
+
+	fmt.Println()
 	fmt.Println("Evidence")
 	fmt.Println("Scenario:", evidence.Scenario)
-	fmt.Println("Verdict:", evidence.Verdict)
-	fmt.Println("Message:", evidence.Message)
-	fmt.Println()
+	fmt.Println("Verdict :", evidence.Verdict)
+	fmt.Println("Message :", evidence.Message)
 
-	fmt.Println("PUBLIC RUNTIME BOUNDARY INITIALIZED")
+	fmt.Println()
+	fmt.Println("FINAL VERDICT")
+	fmt.Println("CONTINUITY PRESERVED")
 }

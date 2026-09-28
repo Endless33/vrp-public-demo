@@ -16,8 +16,8 @@ type Transport struct {
 type TransportType string
 
 const (
-	TransportUDP TransportType = "UDP"
-	TransportTCP TransportType = "TCP"
+	TransportUDP  TransportType = "UDP"
+	TransportTCP  TransportType = "TCP"
 	TransportQUIC TransportType = "QUIC"
 )
 

@@ -18,7 +18,6 @@ const (
 // canonical state, cryptographic material, and protected
 // algorithms are never exposed.
 type Evidence struct {
-
 	Scenario string
 
 	Verdict Verdict
