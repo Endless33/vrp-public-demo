@@ -62,4 +62,10 @@ func main() {
 	fmt.Println()
 	fmt.Println("FINAL VERDICT")
 	fmt.Println("CONTINUITY PRESERVED")
+
+	if err := exportTransportMigration(); err != nil {
+		fmt.Println()
+		fmt.Println("Evidence export failed:")
+		fmt.Println(err)
+	}
 }
