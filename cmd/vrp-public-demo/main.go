@@ -47,7 +47,7 @@ func main() {
 	fmt.Println("Transport switched")
 	fmt.Println("Active transport:", session.ActiveTransport)
 
-	evidence := api.CreateEvidence(
+	ev := api.CreateEvidence(
 		"Transport Migration",
 		boundary.VerdictPass,
 		"Logical session preserved while transport changed.",
@@ -55,9 +55,9 @@ func main() {
 
 	fmt.Println()
 	fmt.Println("Evidence")
-	fmt.Println("Scenario:", evidence.Scenario)
-	fmt.Println("Verdict :", evidence.Verdict)
-	fmt.Println("Message :", evidence.Message)
+	fmt.Println("Scenario:", ev.Scenario)
+	fmt.Println("Verdict :", ev.Verdict)
+	fmt.Println("Message :", ev.Message)
 
 	fmt.Println()
 	fmt.Println("FINAL VERDICT")
@@ -67,5 +67,9 @@ func main() {
 		fmt.Println()
 		fmt.Println("Evidence export failed:")
 		fmt.Println(err)
+	} else {
+		fmt.Println()
+		fmt.Println("Evidence exported:")
+		fmt.Println("evidence/transport-migration.json")
 	}
 }
