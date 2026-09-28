@@ -1,78 +1,236 @@
-VRP Public Demo
+# VRP Public Demo
 
-VRP Public Demo is a standalone demonstration application for the public architecture of VRP (Veil Routing Protocol).
+**VRP Public Demo** is a standalone engineering demonstration for the public architecture of **VRP (Veil Routing Protocol)**.
 
-Its purpose is to allow engineers, researchers, and organizations to observe publicly verifiable runtime behavior without requiring access to the protected runtime implementation.
+Its purpose is to allow engineers, researchers, organizations, and independent evaluators to observe publicly verifiable runtime behavior without requiring access to the protected VRP runtime implementation.
+
+The demonstration focuses exclusively on publicly documented architectural behavior.
+
+The protected runtime implementation is **not included**.
 
 ---
 
-What this demonstrates
+# What this demonstrates
 
-The demo focuses on observable protocol behavior, including:
+The current public demonstration includes:
 
 - Session establishment
 - Session continuity
 - Transport migration
+- Runtime Boundary API
+- Public evidence generation
+- Deterministic observable runtime behavior
+
+Future public demonstrations will include:
+
+- Session recovery
 - Replay rejection
 - Stale-state rejection
 - Authority validation
-- Deterministic runtime behavior
-- Public evidence generation
-
-The demonstration is intentionally limited to publicly documented architectural behavior.
-
-Protected runtime implementation details are not included.
+- Multi-scenario execution
+- Public evidence reports
 
 ---
 
-Engineering Principles
+# Engineering Principle
 
 VRP is built around one architectural principle:
 
-«SESSION ≠ TRANSPORT»
+```
+SESSION ≠ TRANSPORT
+```
 
 The logical session remains canonical.
 
-Transport becomes replaceable.
+Underlying transports may change without changing logical session identity.
 
-Observable behavior should remain correct while network conditions change.
+Observable behavior remains stable while network conditions change.
 
 ---
 
-Project Scope
+# Repository Purpose
 
 This repository is intended for:
 
-- engineering demonstrations
-- public evaluation
-- architectural understanding
-- independent verification
-- reproducible runtime behavior
+- Engineering demonstrations
+- Public evaluation
+- Architectural understanding
+- Independent verification
+- Runtime Boundary evaluation
+- Reproducible public demonstrations
 
-It is not the protected VRP runtime.
+This repository is **not** the protected VRP runtime.
 
 ---
 
-Public Documentation
+# Repository Structure
 
-VRP Specification
+```
+cmd/
+    vrp-public-demo/
+
+internal/
+    evidence/
+
+docs/
+
+evidence/
+```
+
+---
+
+# Current Demonstration
+
+The current demo demonstrates:
+
+1. Create logical session
+2. Attach transport
+3. Migrate transport
+4. Preserve logical session
+5. Generate public evidence
+6. Export JSON evidence
+
+Example output:
+
+```
+======================================
+VRP Runtime Boundary
+======================================
+
+Version: v0.1.0
+Principle: SESSION ≠ TRANSPORT
+
+Session: demo-session
+State: ACTIVE
+Transport: udp:A
+
+----- TRANSPORT MIGRATION -----
+
+Transport switched
+Active transport: udp:B
+
+Evidence
+Scenario: Transport Migration
+Verdict : PASS
+
+FINAL VERDICT
+CONTINUITY PRESERVED
+```
+
+---
+
+# Building
+
+Clone the repository:
+
+```bash
+git clone https://github.com/Endless33/vrp-public-demo.git
+
+cd vrp-public-demo
+```
+
+Build:
+
+```bash
+go build ./cmd/vrp-public-demo
+```
+
+Run:
+
+```bash
+go run ./cmd/vrp-public-demo
+```
+
+or
+
+```bash
+go run ./cmd/vrp-public-demo migration
+```
+
+---
+
+# Generated Evidence
+
+Running the demo automatically generates a public engineering evidence report.
+
+Example:
+
+```
+evidence/
+└── transport-migration.json
+```
+
+Example report:
+
+```json
+{
+  "version": "v0.1.0",
+  "scenario": "Transport Migration",
+  "verdict": "PASS",
+  "principle": "SESSION ≠ TRANSPORT",
+  "session_id": "demo-session",
+  "transport": "udp:B",
+  "timestamp": "..."
+}
+```
+
+---
+
+# Runtime Boundary
+
+The demo communicates exclusively through the public Runtime Boundary API.
+
+Protected runtime implementation remains outside the public interface.
+
+---
+
+# Public Documentation
+
+## VRP Specification
 
 https://github.com/Endless33/VRP-specification
 
-Runtime Boundary Preview
+## Runtime Boundary Preview
 
 https://github.com/Endless33/vrp-runtime-boundary-preview
 
 ---
 
-Status
+# Roadmap
 
-Active engineering development.
+Planned public demonstrations include:
 
-Public demonstration project.
+- Session Recovery
+- Replay Rejection
+- Authority Validation
+- Stale-State Rejection
+- Scenario CLI
+- Multiple Evidence Reports
+- Automated Demonstration Suite
 
 ---
 
-Architecture is public.
+# Status
+
+**Status:** Active Engineering Development
+
+Current public release:
+
+- Runtime Boundary API
+- Public Demo
+- Transport Migration Demonstration
+- JSON Evidence Export
+
+Additional public demonstrations are under active development.
+
+---
+
+# Design Philosophy
+
+The architecture is public.
+
+Observable behavior is public.
+
+Engineering evidence is public.
 
 Protected runtime implementation remains private.
