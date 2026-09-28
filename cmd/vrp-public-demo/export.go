@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/Endless33/vrp-public-demo/internal/evidence"
 )
 
@@ -17,16 +15,8 @@ func exportTransportMigration() error {
 		Transport: "udp:B",
 	}
 
-	if err := evidence.Export(
+	return evidence.Export(
 		"evidence/transport-migration.json",
 		report,
-	); err != nil {
-		return err
-	}
-
-	fmt.Println()
-	fmt.Println("Evidence exported:")
-	fmt.Println("evidence/transport-migration.json")
-
-	return nil
+	)
 }
