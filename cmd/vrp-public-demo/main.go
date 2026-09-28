@@ -2,74 +2,32 @@ package main
 
 import (
 	"fmt"
-
-	"github.com/Endless33/vrp-runtime-boundary-preview/boundary"
+	"os"
 )
 
 func main() {
 
-	api := boundary.New()
+	if len(os.Args) < 2 {
+		RunMigration()
+		return
+	}
 
-	session := api.CreateSession("demo-session")
+	switch os.Args[1] {
 
-	transportA := api.CreateTransport(
-		"udp:A",
-		boundary.TransportUDP,
-	)
+	case "migration":
+		RunMigration()
 
-	transportB := api.CreateTransport(
-		"udp:B",
-		boundary.TransportUDP,
-	)
-
-	api.SwitchTransport(session, transportA)
-	session.Activate()
-
-	fmt.Println("======================================")
-	fmt.Println(api.Name())
-	fmt.Println("======================================")
-	fmt.Println()
-
-	fmt.Println("Version:", api.Version())
-	fmt.Println("Principle:", api.DesignPrinciple())
-	fmt.Println()
-
-	fmt.Println("Session:", session.ID)
-	fmt.Println("State:", session.State)
-	fmt.Println("Transport:", session.ActiveTransport)
-
-	fmt.Println()
-	fmt.Println("----- TRANSPORT MIGRATION -----")
-	fmt.Println()
-
-	api.SwitchTransport(session, transportB)
-
-	fmt.Println("Transport switched")
-	fmt.Println("Active transport:", session.ActiveTransport)
-
-	ev := api.CreateEvidence(
-		"Transport Migration",
-		boundary.VerdictPass,
-		"Logical session preserved while transport changed.",
-	)
-
-	fmt.Println()
-	fmt.Println("Evidence")
-	fmt.Println("Scenario:", ev.Scenario)
-	fmt.Println("Verdict :", ev.Verdict)
-	fmt.Println("Message :", ev.Message)
-
-	fmt.Println()
-	fmt.Println("FINAL VERDICT")
-	fmt.Println("CONTINUITY PRESERVED")
-
-	if err := exportTransportMigration(); err != nil {
+	case "help":
+		fmt.Println("VRP Public Demo")
 		fmt.Println()
-		fmt.Println("Evidence export failed:")
-		fmt.Println(err)
-	} else {
+		fmt.Println("Usage:")
+		fmt.Println("  vrp-public-demo migration")
+
+	default:
+		fmt.Println("Unknown command:", os.Args[1])
 		fmt.Println()
-		fmt.Println("Evidence exported:")
-		fmt.Println("evidence/transport-migration.json")
+		fmt.Println("Available commands:")
+		fmt.Println("  migration")
+		fmt.Println("  help")
 	}
 }
