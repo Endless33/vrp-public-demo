@@ -29,3 +29,19 @@ func (a *API) Version() string {
 func (a *API) DesignPrinciple() string {
 	return "SESSION ≠ TRANSPORT"
 }
+
+// SwitchTransport performs a public transport replacement.
+func (a *API) SwitchTransport(
+	session *Session,
+	transport *Transport,
+) {
+
+	if session == nil || transport == nil {
+		return
+	}
+
+	transport.Attach()
+	transport.Activate()
+
+	session.SwitchTransport(transport.ID)
+}
