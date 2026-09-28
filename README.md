@@ -17,18 +17,15 @@ The current public demonstration includes:
 - Session establishment
 - Session continuity
 - Transport migration
-- Runtime Boundary API
-- Public evidence generation
-- Deterministic observable runtime behavior
-
-Future public demonstrations will include:
-
 - Session recovery
 - Replay rejection
 - Stale-state rejection
 - Authority validation
-- Multi-scenario execution
-- Public evidence reports
+- Runtime Boundary API
+- Interactive demonstration menu
+- CLI scenario execution
+- Public evidence generation
+- Deterministic observable runtime behavior
 
 ---
 
@@ -79,47 +76,21 @@ evidence/
 
 ---
 
-# Current Demonstration
+# Requirements
 
-The current demo demonstrates:
+- Go 1.25 or newer
+- Linux, macOS or Windows
+- Git
 
-1. Create logical session
-2. Attach transport
-3. Migrate transport
-4. Preserve logical session
-5. Generate public evidence
-6. Export JSON evidence
+Verify your Go installation:
 
-Example output:
-
-```
-======================================
-VRP Runtime Boundary
-======================================
-
-Version: v0.1.0
-Principle: SESSION ≠ TRANSPORT
-
-Session: demo-session
-State: ACTIVE
-Transport: udp:A
-
------ TRANSPORT MIGRATION -----
-
-Transport switched
-Active transport: udp:B
-
-Evidence
-Scenario: Transport Migration
-Verdict : PASS
-
-FINAL VERDICT
-CONTINUITY PRESERVED
+```bash
+go version
 ```
 
 ---
 
-# Building
+# Installation
 
 Clone the repository:
 
@@ -129,29 +100,112 @@ git clone https://github.com/Endless33/vrp-public-demo.git
 cd vrp-public-demo
 ```
 
-Build:
+Download dependencies:
 
 ```bash
-go build ./cmd/vrp-public-demo
+go mod tidy
 ```
 
-Run:
+Verify the project:
+
+```bash
+go fmt ./...
+
+go test ./...
+
+go vet ./...
+```
+
+---
+
+# Running the Demo
+
+## Interactive Mode
+
+Start the interactive demonstration:
 
 ```bash
 go run ./cmd/vrp-public-demo
 ```
 
-or
+You'll see:
+
+```
+======================================
+VRP PUBLIC DEMO
+======================================
+
+1. Session Establishment
+2. Transport Migration
+3. Session Recovery
+4. Replay Rejection
+5. Stale-State Rejection
+6. Authority Validation
+7. Full Demonstration
+0. Exit
+```
+
+Simply enter the number of the scenario you want to execute.
+
+---
+
+## Command Line Mode
+
+Individual scenarios can also be executed directly.
+
+Session Establishment
+
+```bash
+go run ./cmd/vrp-public-demo session
+```
+
+Transport Migration
 
 ```bash
 go run ./cmd/vrp-public-demo migration
+```
+
+Session Recovery
+
+```bash
+go run ./cmd/vrp-public-demo recovery
+```
+
+Replay Rejection
+
+```bash
+go run ./cmd/vrp-public-demo replay
+```
+
+Stale-State Rejection
+
+```bash
+go run ./cmd/vrp-public-demo stale
+```
+
+Authority Validation
+
+```bash
+go run ./cmd/vrp-public-demo authority
+```
+
+Run every demonstration sequentially
+
+```bash
+go run ./cmd/vrp-public-demo full
+```
+
+Display help
+
+```bash
+go run ./cmd/vrp-public-demo help
 ```
 
 ---
 
 # Generated Evidence
 
-Running the demo automatically generates a public engineering evidence report.
+Some demonstrations generate a public engineering evidence report.
 
 Example:
 
@@ -196,17 +250,15 @@ https://github.com/Endless33/vrp-runtime-boundary-preview
 
 ---
 
-# Roadmap
+# Current Public Scenarios
 
-Planned public demonstrations include:
-
+- Session Establishment
+- Transport Migration
 - Session Recovery
 - Replay Rejection
-- Authority Validation
 - Stale-State Rejection
-- Scenario CLI
-- Multiple Evidence Reports
-- Automated Demonstration Suite
+- Authority Validation
+- Full Demonstration
 
 ---
 
@@ -214,14 +266,17 @@ Planned public demonstrations include:
 
 **Status:** Active Engineering Development
 
-Current public release:
+Current public release includes:
 
 - Runtime Boundary API
-- Public Demo
-- Transport Migration Demonstration
-- JSON Evidence Export
-
-Additional public demonstrations are under active development.
+- Interactive Public Demo
+- Scenario CLI
+- Transport Migration
+- Session Recovery
+- Replay Rejection
+- Stale-State Rejection
+- Authority Validation
+- Public JSON Evidence Export
 
 ---
 
