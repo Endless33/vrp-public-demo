@@ -40,15 +40,6 @@ func main() {
 		fmt.Println()
 		fmt.Println("Usage:")
 		fmt.Println("  go run ./cmd/vrp-public-demo")
-<<<<<<< HEAD
-		fmt.Println("  go run ./cmd/vrp-public-demo migration")
-		fmt.Println("  go run ./cmd/vrp-public-demo recovery")
-
-	default:
-		fmt.Println("Unknown command:", os.Args[1])
-		fmt.Println()
-		fmt.Println("Use:")
-=======
 		fmt.Println("  go run ./cmd/vrp-public-demo session")
 		fmt.Println("  go run ./cmd/vrp-public-demo migration")
 		fmt.Println("  go run ./cmd/vrp-public-demo recovery")
@@ -56,11 +47,12 @@ func main() {
 		fmt.Println("  go run ./cmd/vrp-public-demo stale")
 		fmt.Println("  go run ./cmd/vrp-public-demo authority")
 		fmt.Println("  go run ./cmd/vrp-public-demo full")
+		fmt.Println("  go run ./cmd/vrp-public-demo help")
 
 	default:
 		fmt.Println("Unknown command:", os.Args[1])
+		fmt.Println()
 		fmt.Println("Run:")
->>>>>>> c22a71e (Refactor public demo into interactive scenario runner)
 		fmt.Println("  go run ./cmd/vrp-public-demo help")
 	}
 }
